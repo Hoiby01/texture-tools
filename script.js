@@ -69,7 +69,7 @@ function pixelizeImage() {
     pixelizedCanvas.width = originalImgXSize;
     pixelizedCanvas.height = originalImgYSize;
     pixelizedCanvasContext.imageSmoothingEnabled = false;
-    pixelizedCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize); //Is this the problem?
+    pixelizedCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
     output.innerHTML = '';
     output.appendChild(pixelizedCanvas);
 }
