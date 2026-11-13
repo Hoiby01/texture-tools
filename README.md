@@ -1,2 +1,2 @@
 # pixel-textures
-A small program to pixelize textures using scaling.
+A small program to pixelate textures using scaling.
