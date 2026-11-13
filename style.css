@@ -33,3 +33,7 @@ h2 {
 :root {
     margin: 10px;
 }
+
+canvas {
+    image-rendering: pixelated;
+}

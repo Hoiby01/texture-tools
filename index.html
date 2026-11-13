@@ -9,10 +9,13 @@
                 <button id="uploadButton">Submit Image</button>
             </form>
             
-            <label for="pixelateFactorSlider">pixelate Factor: </label>
-            <input id="pixelateFactorSlider" type="range" min="1" value="1" max="10" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
+            <label for="pixelateFactorSlider">Pixelate Factor: </label>
+            <input id="pixelateFactorSlider" type="range" min="1" value="1" max="30" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
             <output id="pixelateFactorOutput" for="pixelateFactorSlider">1</output>
-            <button id="pixelateButton">pixelate</button>
+            
+            <label for="posterizationSlider">Posterization Factor: </label>
+            <input id="posterizationSlider" type = "range" min="1" value="1000" max="1000" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
+            <output id="posterizationSliderOutput" for="posterizationSlider">1000</output>
 
         </section>
 
