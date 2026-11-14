@@ -12,6 +12,7 @@ const exportButton = document.querySelector('#exportButton');
 const exportImage = document.querySelector('#exportImage');
 const tintColor = document.querySelector('#tintColor');
 const greyscaleSlider = document.querySelector('#greyscaleAmount');
+const saturationSlider = document.querySelector('#saturationAmount');
 
 //Create references for canvases
 let originalImgXSize;
@@ -69,10 +70,12 @@ posterizationCheckbox.addEventListener('input', (event) => {
     updateImage();
 })
 
+//Listen for an update on greyscale slider.
 greyscaleSlider.addEventListener('change', (event) => {
     updateImage();
 })
 
+//Export the image with applied effects.
 exportButton.addEventListener('click', (event) => {
     const a = document.createElement("a");
     document.body.appendChild(a);
@@ -83,7 +86,12 @@ exportButton.addEventListener('click', (event) => {
 
 })
 
+//Listen for a change on tint slider.
 tintColor.addEventListener('change', (event) => {
+    updateImage();
+})
+
+saturationSlider.addEventListener('change', (event) => {
     updateImage();
 })
 
@@ -231,6 +239,45 @@ function greyscaleImage() {
     output.appendChild(editedOutputCanvas);
 }
 
+function saturateImage() {
+    let saturationAmount = saturationSlider.value;
+    saturationAmount = saturationAmount / 100;
+    workingCanvas.width = originalImgXSize;
+    workingCanvas.height = originalImgYSize;
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    
+    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
+    
+    for (let i = 0; i < imageData.data.length; i+=4) {
+        //Satuaration pushes pixels' colors closer or further away from their greyscale amount, so grey needs to be calcuated.
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+        const grey = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+        red = grey + (red - grey) * saturationAmount;
+        green = grey + (green - grey) * saturationAmount;
+        blue = grey + (blue - grey) * saturationAmount; 
+        
+        //red = Math.max(0, Math.min(255, red));
+        //green = Math.max(0, Math.min(255, green));
+        //blue = Math.max(0, Math.min(255, green));
+
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+
+    workingCanvasContext.putImageData(imageData, 0, 0);
+
+    editedOutputCanvas.width = originalImgXSize;
+    editedOutputCanvas.height = originalImgYSize;
+    editedCanvasContext.imageSmoothingEnabled = false;
+    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -246,4 +293,5 @@ function updateImage() {
     }
     tintImage();
     greyscaleImage();
+    saturateImage();
 }

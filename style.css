@@ -1,17 +1,18 @@
 :root {
-    background-color: #11224e;
-    font-family: fantasy;
+    --background-color: #11224e;
+    font-family: Franklin Gothic Medium;
     font-weight: 100;
     --big-accent-color: #f87b1b;
     --accent-color: #cbd99b;
     --color: #eeeeee;
+    background-color: var(--background-color);
 }
 
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
+    gap: 0px;
+    padding: 0px;
     text-align: center;
 }
 
@@ -29,6 +30,7 @@ h2 {
 
 h3 {
     font-size: 16px;
+    font-family: 'Franklin Gothic Medium';
     font-weight: 500;
     color: var(--accent-color);
 }
@@ -44,11 +46,16 @@ h3 {
     grid-column: 1 / -1;
     text-align: center;
     margin: 0px;
+    padding: 0px;
 }
 
 #outputPreview {
     width: 512px;
     max-height: 1000px;
+}
+
+#subtitle {
+    padding-bottom: 20px;
 }
 
 :root {
@@ -67,6 +74,38 @@ body {
 
 button {
     background-color: var(--accent-color);
-    font-family: fantasy, Courier, monospace;
     font-weight: 100;
+    border-style: none;
+    font-family: Franklin Gothic Medium;
+    font-size: 150%;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: var(--accent-color);
+    font-family: Franklin Gothic Medium;
+    font-weight: 100;
+    border-style: none;
+    font-size: 150%;
+}
+
+input[type="file"] {
+    font-family: Franklin Gothic Medium;
+    font-weight: 100;
+    font-size: 100%;
+    padding-top: 4%;
+}
+
+input[type="color"] {
+    background-color:var(--background-color);
+    border-style: none;
+}
+
+.effectForm {
+    display: flex;
+    align-items:normal;
+    justify-content: center;
+}
+
+.effectLabel {
+    padding-right: 5px;
 }

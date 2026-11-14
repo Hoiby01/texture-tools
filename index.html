@@ -1,19 +1,21 @@
 <body>
     <main class="container">
-        <h1>Texture Tools</h1>
-        <h2>A retro-focused editor for images and textures.</h2>
+        <h1 style="padding: 0px">
+            <image src="https://cdn.hackclub.com/01a1dc3c-fa71-773f-88fb-1e3be6f7cb45/texture-tools-banner.png" width="500"></image>
+        </h1>
+        <h2 id="subTitle">A retro-focused editor for images and textures.</h2>
 
         <section class="column">
             <h2>Upload and Settings</h2>
-            <form id="imageUploadForm">
+            <form id="imageUploadForm" >
                 <input type="file" id="imageInput" name="imageInput" required />
                 <button id="uploadButton">Submit Image</button>
             </form>
             
             <div class="effect">
                 <h3 draggable="true">Pixelation</h3>
-                <form id="pixelateForm">
-                    <label for="pixelateFactorSlider">Pixelate Factor: </label>
+                <form id="pixelateForm" class="effectForm">
+                    <label for="pixelateFactorSlider" class="effectLabel">Pixelate Factor: </label>
                     <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
                     <output id="pixelateFactorOutput" for="pixelateFactorSlider">1</output>
                 </form>
@@ -21,8 +23,8 @@
                 
             <div class="effect">
                 <h3 draggable="true">Posterization</h3>
-                <form id="posteriazationForm">
-                    <label for="posterizationSlider">Posterization Factor: </label>
+                <form id="posteriazationForm" class="effectForm">
+                    <label for="posterizationSlider" class="effectLabel">Posterization Factor:</label>
                     <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
                     <output id="posterizationSliderOutput" for="posterizationSlider">10</output>
                 </form>
@@ -34,18 +36,27 @@
 
             <div class="effect">
                 <h3 draggable="true">Tint</h3>
-                <form id="tintForm">
-                    <label for="tintColor">Tint Color: </label>
+                <form id="tintForm" class="effectForm">
+                    <label for="tintColor" class="effectLabel">Tint Color: </label>
                     <input id="tintColor" type="color" name="tintColor" value="#FFFFFF">
                 </form>
             </div>
 
             <div class="effect">
                 <h3 draggable="true">Greyscale</h3>
-                <form id="greyscaleForm">
-                    <label for="greyscaleAmount">Greyscale Amount: </label>
+                <form id="greyscaleForm" class="effectForm">
+                    <label for="greyscaleAmount" class="effectLabel">Greyscale Amount: </label>
                     <input id="greyscaleAmount" type="range" min="0" max="100" value="0" oninput="greyscaleAmountOutput.value = this.value">
                     <output id="greyscaleAmountOutput" for="greyscaleAmount">0</output>
+                </form>
+            </div>
+
+            <div class="effect">
+                <h3 draggable="true">Saturation</h3>
+                <form id="saturationForm">
+                    <label for="saturationAmount">Saturation Amount: </label>
+                    <input id="saturationAmount" type="range" min="100" max="500" value="100" oninput="saturationAmountOutput.value = this.value">
+                    <output id="saturationAmountOutput" for="saturationAmount">100</output>
                 </form>
             </div>
 
