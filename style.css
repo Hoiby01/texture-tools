@@ -28,6 +28,7 @@ h2 {
 
 #outputPreview {
     width: 512px;
+    max-height: 1000px;
 }
 
 :root {

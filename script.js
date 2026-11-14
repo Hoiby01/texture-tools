@@ -11,6 +11,7 @@ const posterizationCheckbox = document.querySelector('#posterizationCheckbox');
 const exportButton = document.querySelector('#exportButton');
 const exportImage = document.querySelector('#exportImage');
 const tintColor = document.querySelector('#tintColor');
+const greyscaleSlider = document.querySelector('#greyscaleAmount');
 
 //Create references for canvases
 let originalImgXSize;
@@ -68,6 +69,10 @@ posterizationCheckbox.addEventListener('input', (event) => {
     updateImage();
 })
 
+greyscaleSlider.addEventListener('change', (event) => {
+    updateImage();
+})
+
 exportButton.addEventListener('click', (event) => {
     const a = document.createElement("a");
     document.body.appendChild(a);
@@ -103,7 +108,7 @@ function pixelizeImage() {
     output.appendChild(editedOutputCanvas);
 }
 
-//Posterize the workingCanvas
+//Posterize the image.
 function posterizeImage() {
     const posterizeAmount = posterizationSlider.value;
     workingCanvas.width = originalImgXSize;
@@ -155,6 +160,7 @@ function posterizeImage() {
     output.appendChild(editedOutputCanvas);
 }
 
+//Tint the image with the selected color.
 function tintImage() {
     const imageTint = tintColor.value;
     workingCanvas.width = originalImgXSize;
@@ -190,6 +196,41 @@ function tintImage() {
     output.appendChild(editedOutputCanvas);
 }
 
+//Greyscale the image by a factor of the greyscale slider.
+function greyscaleImage() {
+    let greyscaleAmount = greyscaleSlider.value;
+    //Convert greyscale amount to a decimal
+    greyscaleAmount = greyscaleAmount / 100;
+    workingCanvas.width = originalImgXSize;
+    workingCanvas.height = originalImgYSize;
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
+
+    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
+
+    for (let i = 0; i < imageData.data.length; i+=4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+        const grey = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+        red =  red * (1 - greyscaleAmount) + grey * greyscaleAmount;
+        green = green * (1 - greyscaleAmount) + grey * greyscaleAmount;
+        blue = blue * (1 - greyscaleAmount) + grey * greyscaleAmount;
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+
+    workingCanvasContext.putImageData(imageData, 0, 0);
+
+    editedOutputCanvas.width = originalImgXSize;
+    editedOutputCanvas.height = originalImgYSize;
+    editedCanvasContext.imageSmoothingEnabled = false;
+    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -204,4 +245,5 @@ function updateImage() {
         posterizeImage();
     }
     tintImage();
+    greyscaleImage();
 }

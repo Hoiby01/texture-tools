@@ -10,7 +10,7 @@
             </form>
             
             <div class="effect">
-                <p draggable="true">Pixelation</p>
+                <h3 draggable="true">Pixelation</h3>
                 <form id="pixelateForm">
                     <label for="pixelateFactorSlider">Pixelate Factor: </label>
                     <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
@@ -19,7 +19,7 @@
             </div>
                 
             <div class="effect">
-                <p draggable="true">Posterization</p>
+                <h3 draggable="true">Posterization</h3>
                 <form id="posteriazationForm">
                     <label for="posterizationSlider">Posterization Factor: </label>
                     <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
@@ -32,10 +32,19 @@
             </div>
 
             <div class="effect">
-                <p draggable="true">Tint</p>
+                <h3 draggable="true">Tint</h3>
                 <form id="tintForm">
                     <label for="tintColor">Tint Color: </label>
-                    <input id="tintColor" type="color" name="tintColor value=#FFFFFF">
+                    <input id="tintColor" type="color" name="tintColor" value="#FFFFFF">
+                </form>
+            </div>
+
+            <div class="effect">
+                <h3 draggable="true">Greyscale</h3>
+                <form id="greyscaleForm">
+                    <label for="greyscaleAmount">Greyscale Amount: </label>
+                    <input id="greyscaleAmount" type="range" min="0" max="100" value="0" oninput="greyscaleAmountOutput.value = this.value">
+                    <output id="greyscaleAmountOutput" for="greyscaleAmount">0</output>
                 </form>
             </div>
 
