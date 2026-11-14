@@ -11,19 +11,27 @@
             
             <form id="pixelateForm">
                 <label for="pixelateFactorSlider">Pixelate Factor: </label>
-                <input id="pixelateFactorSlider" type="range" min="1" value="1" max="30" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
+                <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
                 <output id="pixelateFactorOutput" for="pixelateFactorSlider">1</output>
             </form>
             
-            <form id="posteriazationForm">
-                <label for="posterizationSlider">Posterization Factor: </label>
-                <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
-                <output id="posterizationSliderOutput" for="posterizationSlider">10</output>
-            </form>
-            
             <form>
-                <label for="posterizationCheckbox">Posterize?</label>
-                <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes">
+                <form id="posteriazationForm">
+                    <label for="posterizationSlider">Posterization Factor: </label>
+                    <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
+                    <output id="posterizationSliderOutput" for="posterizationSlider">10</output>
+                </form>
+                <form>
+                    <label for="posterizationCheckbox">Posterize?</label>
+                    <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes">
+                </form>
+            </form>
+
+            <form>
+                <form id="tintForm">
+                    <label for="tintColor">Tint Color: </label>
+                    <input id="tintColor" type="color" name="tintColor value=#FFFFFF">
+                </form>
             </form>
 
         </section>
@@ -32,7 +40,8 @@
             <h2>Output</h2>
             <img id="outputPreview">
             <div id="output"></div>
-
+            <button id="exportButton">Export!</button>
+            <img id="exportImage">
         </section>
 
     <script type="module" src="/script.js"></script>

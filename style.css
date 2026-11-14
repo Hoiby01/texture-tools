@@ -36,4 +36,5 @@ h2 {
 
 canvas {
     image-rendering: pixelated;
+    max-width: 1000px;
 }

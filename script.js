@@ -8,14 +8,19 @@ const pixelateFactorSlider = document.querySelector('#pixelateFactorSlider');
 const output = document.querySelector("#output");
 const posterizationSlider = document.querySelector('#posterizationSlider');
 const posterizationCheckbox = document.querySelector('#posterizationCheckbox');
+const exportButton = document.querySelector('#exportButton');
+const exportImage = document.querySelector('#exportImage');
+const tintColor = document.querySelector('#tintColor');
 
 //Create references for canvases
 let originalImgXSize;
 let originalImgYSize;
 const originalOutputCanvas = document.createElement('canvas');
 const originalCanvasContext = originalOutputCanvas.getContext('2d')
-const pixelizedCanvas = document.createElement('canvas');
-const pixelizedCanvasContext = pixelizedCanvas.getContext('2d');
+const workingCanvas = document.createElement('canvas');
+const workingCanvasContext = workingCanvas.getContext('2d', {
+    willReadFrequently: true
+});
 const editedOutputCanvas = document.createElement('canvas');
 const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
@@ -39,18 +44,40 @@ uploadForm.addEventListener('submit', async (event) => {
         originalCanvasContext.drawImage(loadedImage, 0, 0);
         output.innerHTML = '';
         output.appendChild(originalOutputCanvas);
+        editedOutputCanvas.width = originalImgXSize;
+        editedOutputCanvas.height = originalImgYSize;
+        editedCanvasContext.imageSmoothingEnabled = false;
+        editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+        updateImage();
     }
 })
 
-pixelateFactorSlider.addEventListener('input', (event) => {
+//Listen for a change on pixelation slider
+pixelateFactorSlider.addEventListener('change', (event) => {
     updateImage();
 })
 
-posterizationSlider.addEventListener('input', (event) => {
+//Listen for a change on posterization slider
+posterizationSlider.addEventListener('change', (event) => {
     updateImage();
 })
 
+//Listen for a change on posteriation checkbox
 posterizationCheckbox.addEventListener('input', (event) => {
+    updateImage();
+})
+
+exportButton.addEventListener('click', (event) => {
+    const a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = editedOutputCanvas.toDataURL();
+    a.download = "Final-Output.png";
+    a.click();
+    document.body.removeChild(a);
+
+})
+
+tintColor.addEventListener('change', (event) => {
     updateImage();
 })
 
@@ -62,27 +89,28 @@ function pixelizeImage() {
     pixelateValue = pixelateFactorSlider.value;
     newImgXSize = originalImgXSize / pixelateValue;
     newImgYSize = originalImgYSize / pixelateValue;
-    editedOutputCanvas.width = newImgXSize;
-    editedOutputCanvas.height = newImgYSize
-    editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(loadedImage, 0, 0, newImgXSize, newImgYSize);
-    pixelizedCanvas.width = originalImgXSize;
-    pixelizedCanvas.height = originalImgYSize;
-    pixelizedCanvasContext.imageSmoothingEnabled = false;
-    pixelizedCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(pixelizedCanvas);
-}
-
-//Posterize the pixelizedCanvas
-function posterizeImage() {
-    const posterizeAmount = posterizationSlider.value;
+    workingCanvas.width = newImgXSize;
+    workingCanvas.height = newImgYSize
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, newImgXSize, newImgYSize);
+    
     editedOutputCanvas.width = originalImgXSize;
     editedOutputCanvas.height = originalImgYSize;
     editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(pixelizedCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
+}
+
+//Posterize the workingCanvas
+function posterizeImage() {
+    const posterizeAmount = posterizationSlider.value;
+    workingCanvas.width = originalImgXSize;
+    workingCanvas.height = originalImgYSize;
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
     
-    const imageData = editedCanvasContext.getImageData(
+    const imageData = workingCanvasContext.getImageData(
         0, 0, originalImgXSize, originalImgYSize
     );
 
@@ -116,16 +144,32 @@ function posterizeImage() {
         imageData.data[i+2] = blue;
     }    
     
-    editedCanvasContext.putImageData(imageData, 0, 0);
+    workingCanvasContext.putImageData(imageData, 0, 0);
     
+    editedOutputCanvas.width = originalImgXSize;
+    editedOutputCanvas.height = originalImgYSize;
+    editedCanvasContext.imageSmoothingEnabled = false;
+    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
 }
 
+function tintImage() {
+
+}
+
+//Function that actually applies image effects.
 function updateImage() {
+    editedOutputCanvas.width = originalImgXSize;
+    editedOutputCanvas.height = originalImgYSize;
+    editedCanvasContext.imageSmoothingEnabled = false;
+    editedCanvasContext.drawImage(originalOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
+
     pixelizeImage();
     if (posterizationCheckbox.checked) {
         posterizeImage();
-        console.log("posterize");
     }
+    tintImage();
 }
