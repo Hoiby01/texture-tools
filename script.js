@@ -25,6 +25,7 @@ const editedOutputCanvas = document.createElement('canvas');
 const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
 });
+const blankCanvas = document.querySelector('blank');
 let loadedImage;
 
 //Upload image. Uploaded image is saved to originalOutputCanvas
@@ -155,7 +156,38 @@ function posterizeImage() {
 }
 
 function tintImage() {
+    const imageTint = tintColor.value;
+    workingCanvas.width = originalImgXSize;
+    workingCanvas.height = originalImgYSize;
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
+    const rTint = parseInt(imageTint.slice(1, 3), 16);
+    const gTint = parseInt(imageTint.slice(3, 5), 16);
+    const bTint = parseInt(imageTint.slice(5, 7), 16);
 
+    for (let i = 0; i < imageData.data.length; i+=4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+
+        red = (red * rTint) / 255;
+        green = (green * gTint) / 255;
+        blue = (blue * bTint) / 255;
+
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+
+    workingCanvasContext.putImageData(imageData, 0, 0);
+
+    editedOutputCanvas.width = originalImgXSize;
+    editedOutputCanvas.height = originalImgYSize;
+    editedCanvasContext.imageSmoothingEnabled = false;
+    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
 }
 
 //Function that actually applies image effects.
@@ -166,7 +198,7 @@ function updateImage() {
     editedCanvasContext.drawImage(originalOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
-
+    
     pixelizeImage();
     if (posterizationCheckbox.checked) {
         posterizeImage();
