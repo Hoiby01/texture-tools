@@ -1,5 +1,5 @@
 {
-  "name": "pixel-textures",
+  "name": "texture-tools",
   "version": "1.0.0",
   "description": "A small program to pixelate textures using scaling.",
   "main": "script.js",
