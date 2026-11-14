@@ -1,3 +1,12 @@
+:root {
+    background-color: #11224e;
+    font-family: fantasy;
+    font-weight: 100;
+    --big-accent-color: #f87b1b;
+    --accent-color: #cbd99b;
+    --color: #eeeeee;
+}
+
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -8,10 +17,20 @@
 
 h1 {
     font-size: 64px;
+    font-weight: 600;
+    color: var(--big-accent-color);
 }
 
 h2 {
     font-size: 32px;
+    font-weight: 200;
+    color: var(--accent-color);
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--accent-color);
 }
 
 .column {
@@ -21,9 +40,10 @@ h2 {
     align-items: center;
 }
 
-.container > h1 {
+.container > h1, h2 {
     grid-column: 1 / -1;
     text-align: center;
+    margin: 0px;
 }
 
 #outputPreview {
@@ -38,4 +58,15 @@ h2 {
 canvas {
     image-rendering: pixelated;
     max-width: 1000px;
+}
+
+body {
+    margin: 0;
+    color: var(--color);
+}
+
+button {
+    background-color: var(--accent-color);
+    font-family: fantasy, Courier, monospace;
+    font-weight: 100;
 }
