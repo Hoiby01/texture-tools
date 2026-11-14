@@ -11,16 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hoiby01/pixel-textures.git"
+    "url": "git+https://github.com/Hoiby01/texture-tools.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Hoiby01/pixel-textures/issues"
+    "url": "https://github.com/Hoiby01/texture-tools/issues"
   },
-  "homepage": "https://github.com/Hoiby01/pixel-textures#readme",
+  "homepage": "https://github.com/Hoiby01/texture-tools#readme",
   "devDependencies": {
     "vite": "^8.3.8"
   }
