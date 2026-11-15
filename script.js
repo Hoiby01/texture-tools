@@ -13,6 +13,7 @@ const exportImage = document.querySelector('#exportImage');
 const tintColor = document.querySelector('#tintColor');
 const greyscaleSlider = document.querySelector('#greyscaleAmount');
 const saturationSlider = document.querySelector('#saturationAmount');
+const brightnessSlider = document.querySelector('#brightnessAmount');
 
 //Create misc. variables
 let loadedImage;
@@ -111,7 +112,13 @@ tintColor.addEventListener('change', (event) => {
     updateImage();
 })
 
+//Listen for saturation change
 saturationSlider.addEventListener('change', (event) => {
+    updateImage();
+})
+
+//Listen for brightness change.
+brightnessSlider.addEventListener('change', (event) => {
     updateImage();
 })
 
@@ -239,6 +246,24 @@ function saturateImage() {
     }
 }
 
+//Apply brightness by adjusting midtones to avoid blowing out light and dark areas.
+function brightenImage() {
+    let brightnessAmount = brightnessSlider.value;
+    for (let i = 0; i < imageData.data.length; i+=4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+
+        red = 255 * (red / 255) ** (1 / brightnessAmount);
+        green = 255 * (green / 255) ** (1 / brightnessAmount);
+        blue = 255 * (blue / 255) ** (1 / brightnessAmount);
+
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -256,6 +281,7 @@ function updateImage() {
     tintImage();
     greyscaleImage();
     saturateImage();
+    brightenImage();
     
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
