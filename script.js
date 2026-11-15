@@ -33,9 +33,24 @@ const editedCanvasContext = editedOutputCanvas.getContext('2d', {
 });
 const blankCanvas = document.querySelector('blank');
 
+//Play button sounds.
+const hoverSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3');
+const exportSound = new Audio('https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3');
+const clickSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1fcece919128/ButtonClick.mp3');
+const buttons = document.querySelectorAll(".soundButton");
+
+buttons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        hoverSound.currentTime = 0;
+        hoverSound.play();
+    })
+})
+
 //Upload image. Uploaded image is saved to originalOutputCanvas
 uploadForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    clickSound.currentTime = 0;
+    clickSound.play();
     const imageInput = document.getElementById('imageInput');
     const imageFile = imageInput.files[0];
     const imageSource = URL.createObjectURL(imageFile);
@@ -80,13 +95,15 @@ greyscaleSlider.addEventListener('change', (event) => {
 
 //Export the image with applied effects.
 exportButton.addEventListener('click', (event) => {
+    exportSound.currentTime = 0;
+    exportSound.play();
     const a = document.createElement("a");
     document.body.appendChild(a);
     a.href = editedOutputCanvas.toDataURL();
     a.download = "Final-Output.png";
     a.click();
     document.body.removeChild(a);
-
+    
 })
 
 //Listen for a change on tint slider.

@@ -1,5 +1,9 @@
 <body>
     <main class="container">
+        <audio id="hoverSound" src="https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3" preload="auto"></audio>
+        <audio id="clickSound" src="https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1fcece919128/ButtonClick.mp3" preload="auto"></audio>
+        <audio id="exportSound" src="https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3" preload="auto"></audio>
+
         <h1 style="padding: 0px">
             <image src="https://cdn.hackclub.com/01a1dc3c-fa71-773f-88fb-1e3be6f7cb45/texture-tools-banner.png" width="500"></image>
         </h1>
@@ -8,8 +12,8 @@
         <section class="column">
             <h2>Upload and Settings</h2>
             <form id="imageUploadForm" >
-                <input type="file" id="imageInput" name="imageInput" required />
-                <button id="uploadButton">Submit Image</button>
+                <input type="file" id="imageInput" name="imageInput" required accept=".png, .jpg, .jpeg"/>
+                <button id="uploadButton" class="soundButton">Submit Image</button>
             </form>
 
             <p>Effects are applied from top to bottom. Drag to rearrange.</p>
@@ -32,7 +36,7 @@
                 </form>
                 <form>
                     <label for="posterizationCheckbox">Posterize?</label>
-                    <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes">
+                    <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes" class="soundButton">
                 </form>
             </div>
 
@@ -68,7 +72,7 @@
             <h2>Output</h2>
             <img id="outputPreview">
             <div id="output"></div>
-            <button id="exportButton">Export!</button>
+            <button id="exportButton" class="soundButton">Export!</button>
             <img id="exportImage">
         </section>
 
