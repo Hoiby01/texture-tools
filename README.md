@@ -9,11 +9,11 @@ Texture tools is a retro-focused image editor made by Hoiby.
 
 ## Features
 Texture tools has a small array of image effects such as:
-- Pixelization: Shrink and then enlargen an image to pixelize it. Factor of one is no change.
-- Posterization: Limit the amount of colors in the image. Uncheck the box for no change.
-- Tint: Tint an image with a selected color. White is no change.
-- Greyscale: Pull the image's colors towards their grey value. Zero is no change.
-- Saturation: Push the images' colorsa away from their grey value. One is no change.
+- Pixelization: Shrink and then enlargen an image to pixelize it.
+- Posterization: Limit the amount of colors in the image.
+- Tint: Tint an image with a selected color.
+- Greyscale: Pull the image's colors towards their grey value.
+- Saturation: Push the images' colors away from their grey value.
 - Brightness: Brighten and darken the image's midtones.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.

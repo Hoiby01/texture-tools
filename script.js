@@ -14,6 +14,7 @@ const tintColor = document.querySelector('#tintColor');
 const greyscaleSlider = document.querySelector('#greyscaleAmount');
 const saturationSlider = document.querySelector('#saturationAmount');
 const brightnessSlider = document.querySelector('#brightnessAmount');
+const resetButton = document.querySelector('#resetButton');
 
 //Create misc. variables
 let loadedImage;
@@ -326,3 +327,26 @@ function updateImage() {
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
 }
+
+//Reset button events
+resetButton.addEventListener('click', (event) => {
+    pixelateFactorSlider.value = 1;
+    pixelateFactorSlider.dispatchEvent(new Event('input'));
+    
+    posterizationSlider.value = 10;
+    posterizationSlider.dispatchEvent(new Event('input'));
+    posterizationCheckbox.checked = false;
+
+    tintColor.value = "#FFFFFF";
+
+    greyscaleSlider.value = 0;
+    greyscaleSlider.dispatchEvent(new Event('input'));
+
+    saturationSlider.value = 1;
+    saturationSlider.dispatchEvent(new Event('input'));
+
+    brightnessSlider.value = 1;
+    brightnessSlider.dispatchEvent(new Event('input'));
+
+    updateImage();
+})
