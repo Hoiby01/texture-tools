@@ -118,6 +118,7 @@ input[type="range"] {
     background: transparent;
     width: 200px;
     height: 10px;
+    border-radius: 0px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -140,6 +141,30 @@ input[type="color"] {
     border-style: none;
 }
 
+input[type="checkbox"] {
+    appearance: none;
+    background-color: var(--color);
+    width: 15px;
+    height: 15px;
+    transform: translateY(-1px);
+    color: var(--accent-color);
+    border-style: none;
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  background-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
 
 .effectForm {
     display: flex;
