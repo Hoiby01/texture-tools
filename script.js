@@ -14,6 +14,10 @@ const tintColor = document.querySelector('#tintColor');
 const greyscaleSlider = document.querySelector('#greyscaleAmount');
 const saturationSlider = document.querySelector('#saturationAmount');
 
+//Create misc. variables
+let loadedImage;
+let imageData;
+
 //Create references for canvases
 let originalImgXSize;
 let originalImgYSize;
@@ -28,7 +32,6 @@ const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
 });
 const blankCanvas = document.querySelector('blank');
-let loadedImage;
 
 //Upload image. Uploaded image is saved to originalOutputCanvas
 uploadForm.addEventListener('submit', async (event) => {
@@ -104,7 +107,7 @@ function pixelizeImage() {
     newImgXSize = originalImgXSize / pixelateValue;
     newImgYSize = originalImgYSize / pixelateValue;
     workingCanvas.width = newImgXSize;
-    workingCanvas.height = newImgYSize
+    workingCanvas.height = newImgYSize;
     workingCanvasContext.imageSmoothingEnabled = false;
     workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, newImgXSize, newImgYSize);
     
@@ -112,21 +115,16 @@ function pixelizeImage() {
     editedOutputCanvas.height = originalImgYSize;
     editedCanvasContext.imageSmoothingEnabled = false;
     editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
+    workingCanvas.width = originalImgXSize;
+    workingCanvas.height = originalImgYSize;
+    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
+    imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
 }
 
 //Posterize the image.
 function posterizeImage() {
     const posterizeAmount = posterizationSlider.value;
-    workingCanvas.width = originalImgXSize;
-    workingCanvas.height = originalImgYSize;
-    workingCanvasContext.imageSmoothingEnabled = false;
-    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    
-    const imageData = workingCanvasContext.getImageData(
-        0, 0, originalImgXSize, originalImgYSize
-    );
 
     for (let i = 0; i < imageData.data.length; i+=4) {
         let red = imageData.data[i];
@@ -157,25 +155,11 @@ function posterizeImage() {
         blue = color;
         imageData.data[i+2] = blue;
     }    
-    
-    workingCanvasContext.putImageData(imageData, 0, 0);
-    
-    editedOutputCanvas.width = originalImgXSize;
-    editedOutputCanvas.height = originalImgYSize;
-    editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
 }
 
 //Tint the image with the selected color.
 function tintImage() {
     const imageTint = tintColor.value;
-    workingCanvas.width = originalImgXSize;
-    workingCanvas.height = originalImgYSize;
-    workingCanvasContext.imageSmoothingEnabled = false;
-    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
     const rTint = parseInt(imageTint.slice(1, 3), 16);
     const gTint = parseInt(imageTint.slice(3, 5), 16);
     const bTint = parseInt(imageTint.slice(5, 7), 16);
@@ -193,15 +177,6 @@ function tintImage() {
         imageData.data[i+1] = green;
         imageData.data[i+2] = blue;
     }
-
-    workingCanvasContext.putImageData(imageData, 0, 0);
-
-    editedOutputCanvas.width = originalImgXSize;
-    editedOutputCanvas.height = originalImgYSize;
-    editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
 }
 
 //Greyscale the image by a factor of the greyscale slider.
@@ -209,13 +184,6 @@ function greyscaleImage() {
     let greyscaleAmount = greyscaleSlider.value;
     //Convert greyscale amount to a decimal
     greyscaleAmount = greyscaleAmount / 100;
-    workingCanvas.width = originalImgXSize;
-    workingCanvas.height = originalImgYSize;
-    workingCanvasContext.imageSmoothingEnabled = false;
-    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
-
-    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
-
     for (let i = 0; i < imageData.data.length; i+=4) {
         let red = imageData.data[i];
         let green = imageData.data[i+1];
@@ -228,27 +196,11 @@ function greyscaleImage() {
         imageData.data[i+1] = green;
         imageData.data[i+2] = blue;
     }
-
-    workingCanvasContext.putImageData(imageData, 0, 0);
-
-    editedOutputCanvas.width = originalImgXSize;
-    editedOutputCanvas.height = originalImgYSize;
-    editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
 }
 
 //Saturate image, in other words, put the color further away from grey.
 function saturateImage() {
-    let saturationAmount = saturationSlider.value;
-    saturationAmount = saturationAmount / 100;
-    workingCanvas.width = originalImgXSize;
-    workingCanvas.height = originalImgYSize;
-    workingCanvasContext.imageSmoothingEnabled = false;
-    workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    
-    const imageData = workingCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
+    let saturationAmount = saturationSlider.value;    
     
     for (let i = 0; i < imageData.data.length; i+=4) {
         //Satuaration pushes pixels' colors closer or further away from their greyscale amount, so grey needs to be calcuated.
@@ -268,15 +220,6 @@ function saturateImage() {
         imageData.data[i+1] = green;
         imageData.data[i+2] = blue;
     }
-
-    workingCanvasContext.putImageData(imageData, 0, 0);
-
-    editedOutputCanvas.width = originalImgXSize;
-    editedOutputCanvas.height = originalImgYSize;
-    editedCanvasContext.imageSmoothingEnabled = false;
-    editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
 }
 
 //Function that actually applies image effects.
@@ -287,6 +230,7 @@ function updateImage() {
     editedCanvasContext.drawImage(originalOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
+    imageData = editedCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
     
     pixelizeImage();
     if (posterizationCheckbox.checked) {
@@ -295,4 +239,8 @@ function updateImage() {
     tintImage();
     greyscaleImage();
     saturateImage();
+    
+    editedCanvasContext.putImageData(imageData, 0, 0);
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
 }
