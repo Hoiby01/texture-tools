@@ -13,7 +13,7 @@ Texture tools has a small array of image effects such as:
 - Posterization: limit the amount of colors in the image. Uncheck the box for no change.
 - Tint: tint an image with a selected color. White is no change.
 - Greyscale: pull the image's colors towards their grey value. Zero is no change.
-- Saturation: push the images' colorsa away from their grey value. 100 is no change.
+- Saturation: push the images' colorsa away from their grey value. One is no change.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 

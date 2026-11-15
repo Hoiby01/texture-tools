@@ -277,13 +277,25 @@ function updateImage() {
     imageData = editedCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
     
     pixelizeImage();
+    
+    
+    tintImage();
+    
+    if (greyscaleSlider.value != 0) {
+        greyscaleImage();
+    }
+    
+    if (saturationSlider.value != 1) {
+        saturateImage();
+    }
+    
+    if (brightnessSlider.value != 1) {
+        brightenImage();
+    }
+    
     if (posterizationCheckbox.checked) {
         posterizeImage();
     }
-    tintImage();
-    greyscaleImage();
-    saturateImage();
-    brightenImage();
     
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
