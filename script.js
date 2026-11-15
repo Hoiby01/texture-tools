@@ -109,6 +109,8 @@ exportButton.addEventListener('click', (event) => {
 
 //Listen for a change on tint slider.
 tintColor.addEventListener('change', (event) => {
+    clickSound.currentTime = 0;
+    clickSound.playSound;
     updateImage();
 })
 
