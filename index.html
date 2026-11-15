@@ -3,6 +3,7 @@
         <audio id="hoverSound" src="https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3" preload="auto"></audio>
         <audio id="clickSound" src="https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1fcece919128/ButtonClick.mp3" preload="auto"></audio>
         <audio id="exportSound" src="https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3" preload="auto"></audio>
+        <audio id="tickSound" src="https://cdn.hackclub.com/01a1e154-f71a-70ba-a2ec-129d089b5c00/tick.mp3" preload="auto"></audio>
 
         <h1 style="padding: 0px">
             <image src="https://cdn.hackclub.com/01a1dc3c-fa71-773f-88fb-1e3be6f7cb45/texture-tools-banner.png" width="500"></image>
@@ -24,7 +25,7 @@
                 <form id="pixelateForm" class="effectForm">
                     <label for="pixelateFactorSlider" class="effectLabel">Pixelate Factor: </label>
                     <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
-                    <output id="pixelateFactorOutput" for="pixelateFactorSlider">1</output>
+                    <output id="pixelateFactorOutput" for="pixelateFactorSlider" class="effectOutput">1</output>
                 </form>
             </div>
                 
@@ -33,7 +34,7 @@
                 <form id="posteriazationForm" class="effectForm">
                     <label for="posterizationSlider" class="effectLabel">Posterization Factor:</label>
                     <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
-                    <output id="posterizationSliderOutput" for="posterizationSlider">10</output>
+                    <output id="posterizationSliderOutput" for="posterizationSlider" class="effectOutput">10</output>
                 </form>
                 <form>
                     <label for="posterizationCheckbox">Posterize?</label>
@@ -54,7 +55,7 @@
                 <form id="greyscaleForm" class="effectForm">
                     <label for="greyscaleAmount" class="effectLabel">Greyscale Amount: </label>
                     <input id="greyscaleAmount" type="range" min="0" max="100" value="0" oninput="greyscaleAmountOutput.value = this.value">
-                    <output id="greyscaleAmountOutput" for="greyscaleAmount">0</output>
+                    <output id="greyscaleAmountOutput" for="greyscaleAmount" class="effectOutput">0</output>
                 </form>
             </div>
 
@@ -63,7 +64,7 @@
                 <form id="saturationForm" class="effectForm">
                     <label for="saturationAmount" class="effectLabel">Saturation Amount: </label>
                     <input id="saturationAmount" type="range" min="1" max="5" value="1" step=".1" oninput="saturationAmountOutput.value = this.value">
-                    <output id="saturationAmountOutput" for="saturationAmount">1</output>
+                    <output id="saturationAmountOutput" for="saturationAmount" class="effectOutput">1</output>
                 </form>
             </div>
 
@@ -72,7 +73,7 @@
                 <form id="brightnessForm" class="effectForm">
                     <label for="brightnessAmount" class="effectLabel">Brightness Amount: </label>
                     <input id="brightnessAmount" type="range" min="0.1" max="2" value="1" step=".1" oninput="brightnessAmountOutput.value = this.value">
-                    <output id="brightnessAmountOutput" for="brightnessAmount">1</output>
+                    <output id="brightnessAmountOutput" for="brightnessAmount" class="effectOutput">1</output>
                 </form>
             </div>
 

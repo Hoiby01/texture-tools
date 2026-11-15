@@ -49,6 +49,7 @@ function resizeImage(maxPixels = 20) {
 const hoverSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3');
 const exportSound = new Audio('https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3');
 const clickSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1fcece919128/ButtonClick.mp3');
+const tickSound = new Audio('https://cdn.hackclub.com/01a1e154-f71a-70ba-a2ec-129d089b5c00/tick.mp3');
 
 const hoverButtons = document.querySelectorAll(".hoverSoundButton");
 hoverButtons.forEach(button => {
@@ -63,6 +64,14 @@ clickButtons.forEach(button => {
     button.addEventListener('click', () => {
         clickSound.currentTime = 0;
         clickSound.play();
+    })
+})
+
+const sliders = document.querySelectorAll('input[type="range"]');
+sliders.forEach(slider => {
+    slider.addEventListener('input', (event) => {
+        tickSound.currentTime = 0;
+        tickSound.play();
     })
 })
 
