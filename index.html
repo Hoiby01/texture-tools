@@ -11,6 +11,8 @@
                 <input type="file" id="imageInput" name="imageInput" required />
                 <button id="uploadButton">Submit Image</button>
             </form>
+
+            <p>Effects are applied from top to bottom. Drag to rearrange.</p>
             
             <div class="effect">
                 <h3 draggable="true">Pixelation</h3>
@@ -53,8 +55,8 @@
 
             <div class="effect">
                 <h3 draggable="true">Saturation</h3>
-                <form id="saturationForm">
-                    <label for="saturationAmount">Saturation Amount: </label>
+                <form id="saturationForm" class="effectForm">
+                    <label for="saturationAmount" class="effectLabel">Saturation Amount: </label>
                     <input id="saturationAmount" type="range" min="100" max="500" value="100" oninput="saturationAmountOutput.value = this.value">
                     <output id="saturationAmountOutput" for="saturationAmount">100</output>
                 </form>

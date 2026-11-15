@@ -239,6 +239,7 @@ function greyscaleImage() {
     output.appendChild(editedOutputCanvas);
 }
 
+//Saturate image, in other words, put the color further away from grey.
 function saturateImage() {
     let saturationAmount = saturationSlider.value;
     saturationAmount = saturationAmount / 100;
