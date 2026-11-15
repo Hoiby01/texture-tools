@@ -9,17 +9,18 @@ Texture tools is a retro-focused image editor made by Hoiby.
 
 ## Features
 Texture tools has a small array of image effects such as:
-- Pixelization: shrink and then enlargen an image to pixelize it. Factor of one is no change.
-- Posterization: limit the amount of colors in the image. Uncheck the box for no change.
-- Tint: tint an image with a selected color. White is no change.
-- Greyscale: pull the image's colors towards their grey value. Zero is no change.
-- Saturation: push the images' colorsa away from their grey value. One is no change.
+- Pixelization: Shrink and then enlargen an image to pixelize it. Factor of one is no change.
+- Posterization: Limit the amount of colors in the image. Uncheck the box for no change.
+- Tint: Tint an image with a selected color. White is no change.
+- Greyscale: Pull the image's colors towards their grey value. Zero is no change.
+- Saturation: Push the images' colorsa away from their grey value. One is no change.
+- Brightness: Brighten and darken the image's midtones.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 
 ## How to Use
 1. Go to https://hoiby01.github.io/texture-tools/.
-2. Upload an image.
+2. Upload an image. (Be sure press submit image)
 3. Adjust effect values until you're happy. Sliders only update after being released for performance.
 4. Rearrange effect panels until you're happy.
 5. Export the image.
@@ -31,6 +32,7 @@ The following are some examples of the effects this program can produce:
 ![Example 3](examples/example03.png)
 ![Example 4](examples/example04.png)
 ![Example 5](examples/example05.png)
+
 ## Built With
 This program was made with:
 - Javascript
@@ -39,6 +41,6 @@ This program was made with:
 
 ## Problems
 Issues with this project:
-- There is no way to reset all effects asides from reloading the page.
-- It probably doesn't resize across different resolutions. Use ctrl + scroll wheel to adjust scale until things look good.
+- There is no way to reset all effects to defaults asides from reloading the page.
+- The interface probably doesn't resize across different resolutions. Use ctrl + scroll wheel to adjust scale until things look good.
 - Effects are only applied after the slider is done being moved because the effects aren't efficent enough to be updated in realtime.
