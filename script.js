@@ -34,24 +34,41 @@ const editedCanvasContext = editedOutputCanvas.getContext('2d', {
 });
 const blankCanvas = document.querySelector('blank');
 
+//Resize the canvas so that things don't get to crazy with high resolution images.
+function resizeImage(maxPixels = 20) {
+    let currentPixelCount = originalImgXSize * originalImgYSize;
+    if (maxPixels < currentPixelCount) {
+        const scale = Math.sqrt(maxPixels / currentPixelCount);
+    
+        originalImgXSize = Math.round(originalImgXSize * scale);
+        originalImgYSize = Math.round(originalImgYSize * scale);
+    }
+}
+
 //Play button sounds.
 const hoverSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3');
 const exportSound = new Audio('https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3');
 const clickSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1fcece919128/ButtonClick.mp3');
-const buttons = document.querySelectorAll(".soundButton");
 
-buttons.forEach(button => {
+const hoverButtons = document.querySelectorAll(".hoverSoundButton");
+hoverButtons.forEach(button => {
     button.addEventListener('mouseenter', () => {
         hoverSound.currentTime = 0;
         hoverSound.play();
     })
 })
 
+const clickButtons = document.querySelectorAll(".clickSoundButton");
+clickButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        clickSound.currentTime = 0;
+        clickSound.play();
+    })
+})
+
 //Upload image. Uploaded image is saved to originalOutputCanvas
 uploadForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    clickSound.currentTime = 0;
-    clickSound.play();
     const imageInput = document.getElementById('imageInput');
     const imageFile = imageInput.files[0];
     const imageSource = URL.createObjectURL(imageFile);
@@ -60,16 +77,17 @@ uploadForm.addEventListener('submit', async (event) => {
     loadedImage.onload = () => {
         originalImgXSize = loadedImage.naturalWidth;
         originalImgYSize = loadedImage.naturalHeight;
+        resizeImage(777600);
         originalOutputCanvas.width = originalImgXSize;
         originalOutputCanvas.height = originalImgYSize;
-        originalCanvasContext.imageSmoothingEnabled = false;
-        originalCanvasContext.drawImage(loadedImage, 0, 0);
+        originalCanvasContext.imageSmoothingEnabled = true;
+        originalCanvasContext.drawImage(loadedImage, 0, 0, originalImgXSize, originalImgYSize);
         output.innerHTML = '';
         output.appendChild(originalOutputCanvas);
         editedOutputCanvas.width = originalImgXSize;
         editedOutputCanvas.height = originalImgYSize;
         editedCanvasContext.imageSmoothingEnabled = false;
-        editedCanvasContext.drawImage(workingCanvas, 0, 0, originalImgXSize, originalImgYSize);
+        editedCanvasContext.drawImage(originalOutputCanvas, 0, 0, originalImgXSize, originalImgYSize);
         updateImage();
     }
 })
@@ -109,8 +127,6 @@ exportButton.addEventListener('click', (event) => {
 
 //Listen for a change on tint slider.
 tintColor.addEventListener('change', (event) => {
-    clickSound.currentTime = 0;
-    clickSound.playSound;
     updateImage();
 })
 
@@ -134,7 +150,7 @@ function pixelizeImage() {
     newImgYSize = originalImgYSize / pixelateValue;
     workingCanvas.width = newImgXSize;
     workingCanvas.height = newImgYSize;
-    workingCanvasContext.imageSmoothingEnabled = false;
+    workingCanvasContext.imageSmoothingEnabled = true;
     workingCanvasContext.drawImage(editedOutputCanvas, 0, 0, newImgXSize, newImgYSize);
     
     editedOutputCanvas.width = originalImgXSize;

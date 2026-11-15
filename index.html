@@ -13,10 +13,11 @@
             <h2>Upload and Settings</h2>
             <form id="imageUploadForm" >
                 <input type="file" id="imageInput" name="imageInput" required accept=".png, .jpg, .jpeg"/>
-                <button id="uploadButton" class="soundButton">Submit Image</button>
+                <button id="uploadButton" class="hoverSoundButton clickSoundButton">Submit Image</button>
             </form>
 
             <p>Effects are applied from top to bottom. Drag to rearrange.</p>
+            <button class="hoverSoundButton clickSoundButton" id="resetButton">Reset Effects</button>
             
             <div class="effect">
                 <h3 draggable="true">Pixelation</h3>
@@ -36,7 +37,7 @@
                 </form>
                 <form>
                     <label for="posterizationCheckbox">Posterize?</label>
-                    <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes" class="soundButton">
+                    <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes" class="hoverSoundButton clickSoundButton">
                 </form>
             </div>
 
@@ -44,7 +45,7 @@
                 <h3 draggable="true">Tint</h3>
                 <form id="tintForm" class="effectForm">
                     <label for="tintColor" class="effectLabel">Tint Color: </label>
-                    <input id="tintColor" type="color" name="tintColor" value="#FFFFFF" class="soundButton">
+                    <input id="tintColor" type="color" name="tintColor" value="#FFFFFF" class="hoverSoundButton clickSoundButton">
                 </form>
             </div>
 
@@ -81,7 +82,7 @@
             <h2>Output</h2>
             <img id="outputPreview">
             <div id="output"></div>
-            <button id="exportButton" class="soundButton">Export!</button>
+            <button id="exportButton" class="hoverSoundButton">Export!</button>
             <img id="exportImage">
         </section>
 
