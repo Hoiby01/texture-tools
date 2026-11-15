@@ -1,11 +1,17 @@
+@font-face {
+    font-family: 'Square'; /*a name to be used later*/
+    src: url('https://cdn.hackclub.com/01a1dd6f-0b89-7880-9d5f-f546294daf98/Square.ttf'); /*URL to font*/
+}
+
 :root {
-    --background-color: #11224e;
-    font-family: Franklin Gothic Medium;
+    --background-color: #004857;
+    font-family: 'Square';
     font-weight: 100;
     --big-accent-color: #f87b1b;
-    --accent-color: #cbd99b;
+    --accent-color: #639E00;
     --color: #eeeeee;
     background-color: var(--background-color);
+    --button-hover-color: #656d4b;
 }
 
 .container {
@@ -30,7 +36,6 @@ h2 {
 
 h3 {
     font-size: 16px;
-    font-family: 'Franklin Gothic Medium';
     font-weight: 500;
     color: var(--accent-color);
 }
@@ -76,22 +81,30 @@ button {
     background-color: var(--accent-color);
     font-weight: 100;
     border-style: none;
-    font-family: Franklin Gothic Medium;
-    font-size: 150%;
-    border-radius: 10px;
+    font-family: 'Square';
+    font-size: 130%;
+    color: var(--color);
+}
+
+button:hover {
+    background-color: var(--button-hover-color);
 }
 
 input[type="file"]::file-selector-button {
     background-color: var(--accent-color);
-    font-family: Franklin Gothic Medium;
+    font-family: 'Square';
     font-weight: 100;
     border-style: none;
-    font-size: 150%;
-    border-radius: 10px;
+    size: 130%;
+    color: var(--color);
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--button-hover-color);
 }
 
 input[type="file"] {
-    font-family: Franklin Gothic Medium;
+    font-family: 'Square';
     font-weight: 100;
     font-size: 100%;
     padding-top: 4%;
@@ -104,10 +117,11 @@ input[type="color"] {
 
 .effectForm {
     display: flex;
-    align-items:normal;
+    align-items:center;
     justify-content: center;
 }
 
 .effectLabel {
     padding-right: 5px;
+    letter-spacing: 3%;
 }
