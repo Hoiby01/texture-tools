@@ -137,6 +137,10 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 0%;
 }
 
+input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+}
+
 input[type="color"] {
     background-color:var(--background-color);
     border-style: none;
@@ -187,6 +191,10 @@ input[type="checkbox"]:checked::before {
     background-color: #00303a;
     position: static;
     z-index: 1;
+}
+
+.dragHeader:active {
+    cursor: grabbing;
 }
 
 .dragHeader {

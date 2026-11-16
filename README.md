@@ -17,6 +17,7 @@ Texture tools has a small array of image effects such as:
 - Brightness: Brighten and darken the image's midtones.
 - Contrast: Change the distance between light and dark pixels.
 - Threshold: Snap all pixels to black or white based on a threshold value.
+- Hue: Rotate colors along the color wheel.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 
@@ -24,8 +25,9 @@ Effects can be reordered by dragging them around and are applied from top to bot
 1. Go to https://hoiby01.github.io/texture-tools/.
 2. Upload an image. (Be sure press submit image)
 3. Adjust effect values until you're happy. Sliders only update after being released for performance.
-4. Rearrange effect panels until you're happy.
+4. Rearrange effect panels until you're happy by grabbing the headers.
 5. Export the image.
+6. If necessary, press reset effects to reset the panel settings, note it does not rearrange panels.
 
 ## Examples
 The following are some examples of the effects this program can produce:
@@ -43,6 +45,5 @@ This program was made with:
 
 ## Problems
 Issues with this project:
-- There is no way to reset all effects to defaults asides from reloading the page.
 - The interface probably doesn't resize across different resolutions. Use ctrl + scroll wheel to adjust scale until things look good.
-- Effects are only applied after the slider is done being moved because the effects aren't efficent enough to be updated in realtime.
+- Effects are only applied after the slider or panel is done being moved because the effects aren't efficent enough to be updated in realtime.
