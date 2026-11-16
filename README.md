@@ -15,6 +15,8 @@ Texture tools has a small array of image effects such as:
 - Greyscale: Pull the image's colors towards their grey value.
 - Saturation: Push the images' colors away from their grey value.
 - Brightness: Brighten and darken the image's midtones.
+- Contrast: Change the distance between light and dark pixels.
+- Threshold: Snap all pixels to black or white based on a threshold value.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 

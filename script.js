@@ -15,6 +15,9 @@ const greyscaleSlider = document.querySelector('#greyscaleAmount');
 const saturationSlider = document.querySelector('#saturationAmount');
 const brightnessSlider = document.querySelector('#brightnessAmount');
 const resetButton = document.querySelector('#resetButton');
+const contrastSlider = document.querySelector('#contrastAmount');
+const thresholdSlider = document.querySelector('#thresholdAmount');
+const thresholdCheckbox = document.querySelector('#thresholdCheckbox');
 
 //Create misc. variables
 let loadedImage;
@@ -76,6 +79,12 @@ sliders.forEach(slider => {
     })
 })
 
+sliders.forEach(slider => {
+    slider.addEventListener('change', (event) => {
+        updateImage();
+    })
+})
+
 //Upload image. Uploaded image is saved to originalOutputCanvas
 uploadForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -102,24 +111,17 @@ uploadForm.addEventListener('submit', async (event) => {
     }
 })
 
-//Listen for a change on pixelation slider
-pixelateFactorSlider.addEventListener('change', (event) => {
+//Listen for a change on tint slider.
+tintColor.addEventListener('change', (event) => {
     updateImage();
 })
 
-//Listen for a change on posterization slider
-posterizationSlider.addEventListener('change', (event) => {
-    updateImage();
-})
-
-//Listen for a change on posteriation checkbox
-posterizationCheckbox.addEventListener('input', (event) => {
-    updateImage();
-})
-
-//Listen for an update on greyscale slider.
-greyscaleSlider.addEventListener('change', (event) => {
-    updateImage();
+//Listen for changes on checkboxes.
+const checkboxes = document.querySelectorAll('input[type=checkbox]');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('input', (event) => {
+        updateImage();
+    })
 })
 
 //Export the image with applied effects.
@@ -133,21 +135,6 @@ exportButton.addEventListener('click', (event) => {
     a.click();
     document.body.removeChild(a);
     
-})
-
-//Listen for a change on tint slider.
-tintColor.addEventListener('change', (event) => {
-    updateImage();
-})
-
-//Listen for saturation change
-saturationSlider.addEventListener('change', (event) => {
-    updateImage();
-})
-
-//Listen for brightness change.
-brightnessSlider.addEventListener('change', (event) => {
-    updateImage();
 })
 
 //Pixelate image. The temporary canvas that is resized is editedOutputCanvas in order to preserve the orignal image.
@@ -234,8 +221,6 @@ function tintImage() {
 //Greyscale the image by a factor of the greyscale slider.
 function greyscaleImage() {
     let greyscaleAmount = greyscaleSlider.value;
-    //Convert greyscale amount to a decimal
-    greyscaleAmount = greyscaleAmount / 100;
     for (let i = 0; i < imageData.data.length; i+=4) {
         let red = imageData.data[i];
         let green = imageData.data[i+1];
@@ -292,6 +277,55 @@ function brightenImage() {
     }
 }
 
+//Apply contrast by increasing the distance between light and dark pixels.
+function contrastImage() {
+    let contrastAmount = contrastSlider.value;
+    contrastAmount = (contrastAmount - 1) * 255;
+    let contrastMultiplier = (259 * (contrastAmount + 255)) / (255 * (259 - contrastAmount));
+    for (let i = 0; i < imageData.data.length; i+=4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+
+        red = Math.trunc(contrastMultiplier * (red - 128) + 128);
+        green = Math.trunc(contrastMultiplier * (green - 128) + 128);
+        blue = Math.trunc(contrastMultiplier * (blue - 128) + 128);
+
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+}
+
+//Apply threshold by comparing pixel values to luminence.
+function thresholdImage() {
+    let thresholdValue = thresholdSlider.value;
+    
+    for (let i = 0; i < imageData.data.length; i += 4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+
+        let luminance = (.299 * red) + (.587 * green) + (.114 * blue);
+        
+        if (luminance >= thresholdValue) {
+            red = 255;
+            green = 255;
+            blue = 255;
+        }
+
+        else {
+            red = 0;
+            green = 0;
+            blue = 0;
+        }
+
+        imageData.data[i] = red;
+        imageData.data[i+1] = green;
+        imageData.data[i+2] = blue;
+    }
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -319,10 +353,18 @@ function updateImage() {
         brightenImage();
     }
     
+    if (contrastSlider.value != 1) {
+        contrastImage();
+    }
+
     if (posterizationCheckbox.checked) {
         posterizeImage();
     }
     
+    if (thresholdCheckbox.checked) {
+        thresholdImage();
+    }
+
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
@@ -348,5 +390,12 @@ resetButton.addEventListener('click', (event) => {
     brightnessSlider.value = 1;
     brightnessSlider.dispatchEvent(new Event('input'));
 
+    contrastSlider.value = 1;
+    contrastSlider.dispatchEvent(new Event('input'));
+
+    thresholdSlider.value = 128;
+    thresholdSlider.dispatchEvent(new Event('input'));
+
+    thresholdCheckbox.checked = false;
     updateImage();
 })

@@ -37,7 +37,7 @@
                     <output id="posterizationSliderOutput" for="posterizationSlider" class="effectOutput">10</output>
                 </form>
                 <form class="effectForm" id="posterizationCheckboxForm">
-                    <label for="posterizationCheckbox">Posterize?</label>
+                    <label for="posterizationCheckbox">Apply Posterization?</label>
                     <input type="checkbox" id="posterizationCheckbox" name="posterizationCheckbox" value="yes" class="hoverSoundButton clickSoundButton">
                 </form>
             </div>
@@ -54,7 +54,7 @@
                 <h3 draggable="true">Greyscale</h3>
                 <form id="greyscaleForm" class="effectForm">
                     <label for="greyscaleAmount" class="effectLabel">Greyscale Amount: </label>
-                    <input id="greyscaleAmount" type="range" min="0" max="100" value="0" oninput="greyscaleAmountOutput.value = this.value">
+                    <input id="greyscaleAmount" type="range" min="0" max="1" step=".01" value="0" oninput="greyscaleAmountOutput.value = this.value">
                     <output id="greyscaleAmountOutput" for="greyscaleAmount" class="effectOutput">0</output>
                 </form>
             </div>
@@ -63,7 +63,7 @@
                 <h3 draggable="true">Saturation</h3>
                 <form id="saturationForm" class="effectForm">
                     <label for="saturationAmount" class="effectLabel">Saturation Amount: </label>
-                    <input id="saturationAmount" type="range" min="1" max="5" value="1" step=".1" oninput="saturationAmountOutput.value = this.value">
+                    <input id="saturationAmount" type="range" min="1" max="5" value="1" step=".01" oninput="saturationAmountOutput.value = this.value">
                     <output id="saturationAmountOutput" for="saturationAmount" class="effectOutput">1</output>
                 </form>
             </div>
@@ -72,8 +72,30 @@
                 <h3 draggable="true">Brightness</h3>
                 <form id="brightnessForm" class="effectForm">
                     <label for="brightnessAmount" class="effectLabel">Brightness Amount: </label>
-                    <input id="brightnessAmount" type="range" min="0.1" max="2" value="1" step=".1" oninput="brightnessAmountOutput.value = this.value">
+                    <input id="brightnessAmount" type="range" min="0.1" max="2" value="1" step=".01" oninput="brightnessAmountOutput.value = this.value">
                     <output id="brightnessAmountOutput" for="brightnessAmount" class="effectOutput">1</output>
+                </form>
+            </div>
+
+            <div class="effect">
+                <h3 draggale="true">Contrast</h3>
+                <form id="contrastForm" class="effectForm">
+                    <label for="contrastAmount" class="effectLabel">Contrast Amount: </label>
+                    <input id="contrastAmount" type="range" min="0" value="1" max="2" step=".01" oninput="contrastAmountOutput.value = this.value">
+                    <output id="contrastAmountOutput" for="contrastAmount" class="effectOutput">1</output>
+                </form>
+            </div>
+
+            <div class="effect">
+                <h3 draggable="true">Threshold</h3>
+                <form id="thresholdForm" class="effectForm">
+                    <label for="thresholdAmount" class="effectLabel">Threshold Value:</label>
+                    <input id="thresholdAmount" type="range" min="0" max="255" value="128" step="1" oninput="thresholdAmountOutput.value = this.value">
+                    <output id="thresholdAmountOutput" for="thresholdAmount" class="effectOutput">128</output>
+                </form>
+                <form class="effectForm" id="thresholdCheckboxForm">
+                    <label for="thresholdCheckboxForm">Apply Threshold?</label>
+                    <input type="checkbox" id="thresholdCheckbox" name="thresholdCheckbox" value="no" class="hoverSoundButton clickSoundButton">
                 </form>
             </div>
 
