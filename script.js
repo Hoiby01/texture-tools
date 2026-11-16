@@ -18,6 +18,7 @@ const resetButton = document.querySelector('#resetButton');
 const contrastSlider = document.querySelector('#contrastAmount');
 const thresholdSlider = document.querySelector('#thresholdAmount');
 const thresholdCheckbox = document.querySelector('#thresholdCheckbox');
+const hueSlider = document.querySelector('#hueAmount');
 
 //Create misc. variables
 let loadedImage;
@@ -36,7 +37,7 @@ const editedOutputCanvas = document.createElement('canvas');
 const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
 });
-const blankCanvas = document.querySelector('blank');
+const blankCanvas = document.querySelector('#blank');
 
 //Resize the canvas so that things don't get to crazy with high resolution images.
 function resizeImage(maxPixels = 20) {
@@ -326,6 +327,83 @@ function thresholdImage() {
     }
 }
 
+//These following two functions were created by ChatGPT because they're way out of my league of understanding as I have no idea how to convert colors.
+function RGBToHSL(r, g, b) {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    let max = Math.max(r, g, b);
+    let min = Math.min(r, g, b);
+
+    let h, s;
+    let l = (max + min) / 2;
+
+    let difference = max - min;
+
+    if (difference === 0 ) {
+        h = 0;
+        s = 0;
+    }
+
+    else {
+        s = difference / (1 - Math.abs(2 * l - 1));
+
+        if (max === r) {
+            h = 60 * (((g - b) / difference) % 6);
+        } else if (max === g) {
+            h = 60 * ((b - r) / difference + 2);
+        } else {
+            h = 60 * ((r - g) / difference + 4);
+        }
+    }
+
+    if (h < 0) h += 360;
+
+    return [h, s, l];
+}
+
+function HSLToRGB(h, s, l) {
+    let c = (1 - Math.abs(2 * l - 1)) * s;
+    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    let m = l - c / 2;
+
+    let r, g, b;
+
+    if (h < 60) {
+        [r, g, b] = [c, x, 0];
+    } else if (h < 120) {
+        [r, g, b] = [x, c, 0];
+    } else if (h < 180) {
+        [r, g, b] = [0, c, x];
+    } else if (h < 240) {
+        [r, g, b] = [0, x, c];
+    } else if (h < 300) {
+        [r, g, b] = [x, 0, c];
+    } else {
+        [r, g, b] = [c, 0, x];
+    }
+    return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+}
+
+function hueImage() {
+    let hueAmount = Number(hueSlider.value);
+
+    for (let i = 0; i < imageData.data.length; i += 4) {
+        let red = imageData.data[i];
+        let green = imageData.data[i+1];
+        let blue = imageData.data[i+2];
+
+        let [h, s, l] = RGBToHSL(red, green, blue);
+        h = (h + hueAmount) % 360;
+
+        let [newRed, newGreen, newBlue] = HSLToRGB(h, s, l);
+        imageData.data[i] = newRed;
+        imageData.data[i+1] = newGreen;
+        imageData.data[i+2] = newBlue;
+    }
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -365,6 +443,10 @@ function updateImage() {
         thresholdImage();
     }
 
+    if (hueSlider.value != 180) {
+        hueImage();
+    }
+
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
@@ -397,5 +479,9 @@ resetButton.addEventListener('click', (event) => {
     thresholdSlider.dispatchEvent(new Event('input'));
 
     thresholdCheckbox.checked = false;
+
+    hueSlider.value = 0;
+    hueSlider.dispatchEvent(new Event('input'));
+
     updateImage();
 })

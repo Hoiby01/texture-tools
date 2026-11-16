@@ -24,7 +24,7 @@
                 <h3 draggable="true">Pixelation</h3>
                 <form id="pixelateForm" class="effectForm">
                     <label for="pixelateFactorSlider" class="effectLabel">Pixelate Factor: </label>
-                    <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" oninput="pixelateFactorOutput.value = this.value">
+                    <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" step=".1" oninput="pixelateFactorOutput.value = this.value">
                     <output id="pixelateFactorOutput" for="pixelateFactorSlider" class="effectOutput">1</output>
                 </form>
             </div>
@@ -96,6 +96,15 @@
                 <form class="effectForm" id="thresholdCheckboxForm">
                     <label for="thresholdCheckboxForm">Apply Threshold?</label>
                     <input type="checkbox" id="thresholdCheckbox" name="thresholdCheckbox" value="no" class="hoverSoundButton clickSoundButton">
+                </form>
+            </div>
+
+            <div class="effect">
+                <h3 draggable="true" class="effectForm">Hue</h3>
+                <form id="hueForm" class="effectForm">
+                    <label for="hueAmount" class="effectLabel">Hue Amount:</label>
+                    <input id="hueAmount" type="range" min="0" max="360" value="0" oninput="hueAmountOutput.value = this.value">
+                    <output id="hueAmountOutput" for="hueAmount" class="effectOutput">0</output>
                 </form>
             </div>
 
