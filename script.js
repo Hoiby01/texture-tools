@@ -131,8 +131,8 @@ clickButtons.forEach(button => {
 const sliders = document.querySelectorAll('input[type="range"]');
 sliders.forEach(slider => {
     slider.addEventListener('input', (event) => {
-        tickSound.currentTime = 0;
-        tickSound.play();
+        hoverSound.currentTime = 0;
+        hoverSound.play();
     })
 })
 
