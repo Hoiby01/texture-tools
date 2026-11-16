@@ -4,6 +4,7 @@ Texture tools is a retro-focused image editor made by Hoiby.
 ## Table of Contents
 - [Features](#features)
 - [How to Use](#how-to-use)
+- [Examples](#exapmles)
 - [Built With](#built-with)
 - [Problems](#problems)
 
@@ -21,6 +22,8 @@ Texture tools has a small array of image effects such as:
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 
+Sounds!
+
 ## How to Use
 1. Go to https://hoiby01.github.io/texture-tools/.
 2. Upload an image. (Be sure press submit image)
@@ -28,6 +31,8 @@ Effects can be reordered by dragging them around and are applied from top to bot
 4. Rearrange effect panels until you're happy by grabbing the headers.
 5. Export the image.
 6. If necessary, press reset effects to reset the panel settings, note it does not rearrange panels.
+
+Press the icon in the bottom right corner to mute the sounds.
 
 ## Examples
 The following are some examples of the effects this program can produce:
