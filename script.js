@@ -19,10 +19,12 @@ const contrastSlider = document.querySelector('#contrastAmount');
 const thresholdSlider = document.querySelector('#thresholdAmount');
 const thresholdCheckbox = document.querySelector('#thresholdCheckbox');
 const hueSlider = document.querySelector('#hueAmount');
+const draggableElements = document.querySelectorAll('.effect')
 
 //Create misc. variables
 let loadedImage;
 let imageData;
+let currentHighestZIndex = 1;
 
 //Create references for canvases
 let originalImgXSize;
@@ -49,6 +51,59 @@ function resizeImage(maxPixels = 20) {
         originalImgYSize = Math.round(originalImgYSize * scale);
     }
 }
+
+//Panel Dragging
+draggableElements.forEach(element => {
+    const handle = element.querySelector('.dragHeader');
+    let isDragging = false;
+    let hasBeenDragged = false;
+
+    let startX, startY;
+    let initialLeft, initialTop;
+    let newLeft, newTop;
+
+    handle.addEventListener('pointerdown', (event) => {
+        const rect = element.getBoundingClientRect();
+
+        startX = event.clientX;
+        startY = event.clientY;
+    
+        initialLeft = rect.left;
+        initialTop = rect.top;
+        
+        currentHighestZIndex++;
+        element.style.zIndex = currentHighestZIndex;
+        if (!hasBeenDragged) {
+            hasBeenDragged = true;
+            element.style.position = "fixed";
+            element.style.left = `${initialLeft}px`;
+            element.style.top = `${initialTop}px`;
+            const placeholderDiv = document.createElement("div");
+            element.parentElement.insertBefore(placeholderDiv, element);
+            placeholderDiv.style.width = `${rect.width}px`;
+            placeholderDiv.style.height = `${rect.height}`;
+        }
+
+        handle.setPointerCapture(event.pointerId);
+        isDragging = true;
+    });
+
+    handle.addEventListener('pointermove', (event) => {
+        if (isDragging) {
+            newLeft = initialLeft + (event.clientX - startX);
+            newTop = initialTop + (event.clientY - startY);
+    
+            element.style.left = `${newLeft}px`;
+            element.style.top = `${newTop}px`;
+        }
+    })
+
+    handle.addEventListener('pointerup', (event) => {
+        if (isDragging) {
+            isDragging = false;
+        }
+    })
+})
 
 //Play button sounds.
 const hoverSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3');

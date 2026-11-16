@@ -21,7 +21,7 @@
             <button class="hoverSoundButton clickSoundButton" id="resetButton">Reset Effects</button>
             
             <div class="effect">
-                <h3 draggable="true">Pixelation</h3>
+                <h3 class="dragHeader">Pixelation</h3>
                 <form id="pixelateForm" class="effectForm">
                     <label for="pixelateFactorSlider" class="effectLabel">Pixelate Factor: </label>
                     <input id="pixelateFactorSlider" type="range" min="1" value="1" max="50" name="pixelateFactorSlider" step=".1" oninput="pixelateFactorOutput.value = this.value">
@@ -30,7 +30,7 @@
             </div>
                 
             <div class="effect">
-                <h3 draggable="true">Posterization</h3>
+                <h3 class="dragHeader">Posterization</h3>
                 <form id="posteriazationForm" class="effectForm">
                     <label for="posterizationSlider" class="effectLabel">Posterization Factor:</label>
                     <input id="posterizationSlider" type="range" min="1" value="10" max="30" name="posterizationSlider" oninput="posterizationSliderOutput.value = this.value">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true">Tint</h3>
+                <h3 class="dragHeader">Tint</h3>
                 <form id="tintForm" class="effectForm">
                     <label for="tintColor" class="effectLabel">Tint Color: </label>
                     <input id="tintColor" type="color" name="tintColor" value="#FFFFFF" class="hoverSoundButton clickSoundButton">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true">Greyscale</h3>
+                <h3 class="dragHeader">Greyscale</h3>
                 <form id="greyscaleForm" class="effectForm">
                     <label for="greyscaleAmount" class="effectLabel">Greyscale Amount: </label>
                     <input id="greyscaleAmount" type="range" min="0" max="1" step=".01" value="0" oninput="greyscaleAmountOutput.value = this.value">
@@ -60,7 +60,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true">Saturation</h3>
+                <h3 class="dragHeader">Saturation</h3>
                 <form id="saturationForm" class="effectForm">
                     <label for="saturationAmount" class="effectLabel">Saturation Amount: </label>
                     <input id="saturationAmount" type="range" min="1" max="5" value="1" step=".01" oninput="saturationAmountOutput.value = this.value">
@@ -69,7 +69,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true">Brightness</h3>
+                <h3 class="dragHeader">Brightness</h3>
                 <form id="brightnessForm" class="effectForm">
                     <label for="brightnessAmount" class="effectLabel">Brightness Amount: </label>
                     <input id="brightnessAmount" type="range" min="0.1" max="2" value="1" step=".01" oninput="brightnessAmountOutput.value = this.value">
@@ -78,7 +78,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggale="true">Contrast</h3>
+                <h3 class="dragHeader">Contrast</h3>
                 <form id="contrastForm" class="effectForm">
                     <label for="contrastAmount" class="effectLabel">Contrast Amount: </label>
                     <input id="contrastAmount" type="range" min="0" value="1" max="2" step=".01" oninput="contrastAmountOutput.value = this.value">
@@ -87,7 +87,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true">Threshold</h3>
+                <h3 class="dragHeader">Threshold</h3>
                 <form id="thresholdForm" class="effectForm">
                     <label for="thresholdAmount" class="effectLabel">Threshold Value:</label>
                     <input id="thresholdAmount" type="range" min="0" max="255" value="128" step="1" oninput="thresholdAmountOutput.value = this.value">
@@ -100,7 +100,7 @@
             </div>
 
             <div class="effect">
-                <h3 draggable="true" class="effectForm">Hue</h3>
+                <h3 class="dragHeader">Hue</h3>
                 <form id="hueForm" class="effectForm">
                     <label for="hueAmount" class="effectLabel">Hue Amount:</label>
                     <input id="hueAmount" type="range" min="0" max="360" value="0" oninput="hueAmountOutput.value = this.value">

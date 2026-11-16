@@ -182,3 +182,13 @@ input[type="checkbox"]:checked::before {
 .effectOutput {
     width: 35px;
 }
+
+.effect {
+    background-color: #00303a;
+    position: static;
+    z-index: 1;
+}
+
+.dragHeader {
+    cursor: grab;
+}
