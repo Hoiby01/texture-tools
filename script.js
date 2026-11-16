@@ -20,11 +20,14 @@ const thresholdSlider = document.querySelector('#thresholdAmount');
 const thresholdCheckbox = document.querySelector('#thresholdCheckbox');
 const hueSlider = document.querySelector('#hueAmount');
 const draggableElements = document.querySelectorAll('.effect')
+const muteButton = document.querySelector('#muteButton');
+const muteIcon = document.querySelector('#volumeMuteIcon');
 
 //Create misc. variables
 let loadedImage;
 let imageData;
 let currentHighestZIndex = 1;
+let isMuted = false;
 
 //Create references for canvases
 let originalImgXSize;
@@ -40,6 +43,18 @@ const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
 });
 const blankCanvas = document.querySelector('#blank');
+
+muteButton.addEventListener('click', (event) => {
+    if (isMuted === true) {
+        muteIcon.hidden = true;
+        isMuted = false;
+    }
+
+    else {
+        muteIcon.hidden = false;
+        isMuted = true;
+    }
+})
 
 //Resize the canvas so that things don't get to crazy with high resolution images.
 function resizeImage(maxPixels = 20) {
@@ -113,26 +128,34 @@ const clickSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5b4a-7c03-ae07-1
 const tickSound = new Audio('https://cdn.hackclub.com/01a1e154-f71a-70ba-a2ec-129d089b5c00/tick.mp3');
 
 const hoverButtons = document.querySelectorAll(".hoverSoundButton");
+
 hoverButtons.forEach(button => {
+    console.log("hovered and unmuted")
     button.addEventListener('mouseenter', () => {
-        hoverSound.currentTime = 0;
-        hoverSound.play();
+        if (!isMuted) {
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+        }
     })
 })
 
 const clickButtons = document.querySelectorAll(".clickSoundButton");
 clickButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        clickSound.currentTime = 0;
-        clickSound.play();
-    })
+    if (!isMuted) {
+        button.addEventListener('click', () => {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        })
+    }
 })
 
 const sliders = document.querySelectorAll('input[type="range"]');
 sliders.forEach(slider => {
     slider.addEventListener('input', (event) => {
-        hoverSound.currentTime = 0;
-        hoverSound.play();
+        if (!isMuted) {
+            hoverSound.currentTime = 0;
+            hoverSound.play();
+        }
     })
 })
 

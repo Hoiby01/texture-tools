@@ -200,3 +200,24 @@ input[type="checkbox"]:checked::before {
 .dragHeader {
     cursor: grab;
 }
+
+#volumeIcon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#volumeMuteIcon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+}
+
+#muteButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: none;
+}
