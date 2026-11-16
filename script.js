@@ -101,6 +101,7 @@ draggableElements.forEach(element => {
     handle.addEventListener('pointerup', (event) => {
         if (isDragging) {
             isDragging = false;
+            updateImage();
         }
     })
 })
@@ -199,8 +200,9 @@ function pixelizeImage() {
     let newImgXSize;
     let newImgYSize;
     pixelateValue = pixelateFactorSlider.value;
-    newImgXSize = originalImgXSize / pixelateValue;
-    newImgYSize = originalImgYSize / pixelateValue;
+    newImgXSize = Math.round(originalImgXSize / pixelateValue);
+    newImgYSize = Math.round(originalImgYSize / pixelateValue);
+    editedCanvasContext.putImageData(imageData, 0, 0);
     workingCanvas.width = newImgXSize;
     workingCanvas.height = newImgYSize;
     workingCanvasContext.imageSmoothingEnabled = true;
@@ -469,39 +471,53 @@ function updateImage() {
     output.appendChild(editedOutputCanvas);
     imageData = editedCanvasContext.getImageData(0, 0, originalImgXSize, originalImgYSize);
     
-    pixelizeImage();
-    
-    
-    tintImage();
-    
-    if (greyscaleSlider.value != 0) {
-        greyscaleImage();
-    }
-    
-    if (saturationSlider.value != 1) {
-        saturateImage();
-    }
-    
-    if (brightnessSlider.value != 1) {
-        brightenImage();
-    }
-    
-    if (contrastSlider.value != 1) {
-        contrastImage();
-    }
+    //Get the panels from top to bottom
+    const panels = Array.from(document.querySelectorAll('.effect'));
+    panels.sort((a, b) => {
+        return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+    });
 
-    if (posterizationCheckbox.checked) {
-        posterizeImage();
-    }
+    panels.forEach(panel => {
+        if (panel.id === 'pixelateEffect') {
+            pixelizeImage();
+        }
+
+        else if (panel.id === 'posterizationEffect') {
+            if (posterizationCheckbox.checked) {
+                posterizeImage();
+            }
+        }
+
+        else if (panel.id === 'tintEffect') {
+            tintImage();
+        }
+
+        else if (panel.id === 'greyscaleEffect') {
+            greyscaleImage();
+        }
+
+        else if (panel.id === 'saturationEffect') {
+            saturateImage();
+        }
+
+        else if (panel.id === 'brightnessEffect') {
+            brightenImage();
+        }
+
+        else if (panel.id === 'contrastEffect') {
+            contrastImage();
+        }
+
+        else if (panel.id === 'thresholdEffect') {
+            if (thresholdCheckbox.checked)
+            thresholdImage();
+        }
+
+        else if (panel.id === 'hueEffect') {
+            hueImage();
+        }
+    })
     
-    if (thresholdCheckbox.checked) {
-        thresholdImage();
-    }
-
-    if (hueSlider.value != 180) {
-        hueImage();
-    }
-
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
