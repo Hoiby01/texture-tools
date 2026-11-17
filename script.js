@@ -22,6 +22,7 @@ const hueSlider = document.querySelector('#hueAmount');
 const draggableElements = document.querySelectorAll('.effect')
 const muteButton = document.querySelector('#muteButton');
 const muteIcon = document.querySelector('#volumeMuteIcon');
+const originalButton = document.querySelector('#originalButton');
 
 //Create misc. variables
 let loadedImage;
@@ -54,6 +55,16 @@ muteButton.addEventListener('click', (event) => {
         muteIcon.hidden = false;
         isMuted = true;
     }
+})
+
+originalButton.addEventListener('mousedown', (event) => {
+    output.innerHTML = '';
+    output.appendChild(originalOutputCanvas);
+});
+
+originalButton.addEventListener('mouseup', (event) => {
+    output.innerHTML = '';
+    output.appendChild(editedOutputCanvas);
 })
 
 //Resize the canvas so that things don't get to crazy with high resolution images.
