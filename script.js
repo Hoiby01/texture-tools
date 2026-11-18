@@ -217,14 +217,17 @@ checkboxes.forEach(checkbox => {
 
 //Export the image with applied effects.
 exportButton.addEventListener('click', (event) => {
-    exportSound.currentTime = 0;
-    exportSound.play();
-    const a = document.createElement("a");
-    document.body.appendChild(a);
-    a.href = editedOutputCanvas.toDataURL();
-    a.download = "Final-Output.png";
-    a.click();
-    document.body.removeChild(a);
+    
+    if (!isMuted) {
+        exportSound.currentTime = 0;
+        exportSound.play();
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = editedOutputCanvas.toDataURL();
+        a.download = "Final-Output.png";
+        a.click();
+        document.body.removeChild(a);
+    }
     
 })
 
