@@ -10,15 +10,20 @@ Texture tools is a retro-focused image editor made by Hoiby.
 
 ## Features
 Texture tools has a small array of image effects such as:
+- Rotation: Rotate images, 90 degree increments only.
+- Flip Images: Not only horizontally, but also vertically.
 - Pixelization: Shrink and then enlargen an image to pixelize it.
 - Posterization: Limit the amount of colors in the image.
 - Tint: Tint an image with a selected color.
+- Invert: Invert all colors in an image.
 - Greyscale: Pull the image's colors towards their grey value.
 - Saturation: Push the images' colors away from their grey value.
 - Brightness: Brighten and darken the image's midtones.
 - Contrast: Change the distance between light and dark pixels.
 - Threshold: Snap all pixels to black or white based on a threshold value.
 - Hue: Rotate colors along the color wheel.
+
+The ability to view the orignal image.
 
 Effects can be reordered by dragging them around and are applied from top to bottom.
 
@@ -27,10 +32,11 @@ Sounds!
 ## How to Use
 1. Go to https://hoiby01.github.io/texture-tools/.
 2. Upload an image. (Be sure press submit image)
-3. Adjust effect values until you're happy. Sliders only update after being released for performance.
-4. Rearrange effect panels until you're happy by grabbing the headers.
-5. Export the image.
-6. If necessary, press reset effects to reset the panel settings, note it does not rearrange panels.
+3. Flip and rotate the image until you're happy.
+4. Adjust effect values until you're happy. Sliders only update after being released for performance.
+5. Rearrange effect panels until you're happy by grabbing the headers.
+6. Export the image.
+7. If necessary, press reset effects to reset the panel settings, note it does not rearrange panels.
 
 Press the icon in the bottom right corner to mute the sounds.
 
