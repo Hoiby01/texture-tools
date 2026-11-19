@@ -1,4 +1,5 @@
-# Texture Tools
+![banner](/texture-tools-banner.png)
+# Texture Tools 
 Texture tools is a retro-focused image editor made by Hoiby. 
 
 ## Table of Contents
@@ -38,15 +39,17 @@ Sounds!
 6. Export the image.
 7. If necessary, press reset effects to reset the panel settings, note it does not rearrange panels.
 
+The original image button shows the original button. Keep it in mind that it doesn't have rotation or flipping.
+
 Press the icon in the bottom right corner to mute the sounds.
 
 ## Examples
 The following are some examples of the effects this program can produce:
 ![Example 1](examples/example01.png)
 ![Example 2](examples/example02.png)
-![Example 3](examples/example03.png)
 ![Example 4](examples/example04.png)
 ![Example 5](examples/example05.png)
+![Example 3](examples/example03.png)
 
 ## Built With
 This program was made with:
@@ -58,3 +61,5 @@ This program was made with:
 Issues with this project:
 - The interface probably doesn't resize across different resolutions. Use ctrl + scroll wheel to adjust scale until things look good.
 - Effects are only applied after the slider or panel is done being moved because the effects aren't efficent enough to be updated in realtime.
+- I got distracted with image effects that I never actually included a tile preview, an essential feature when editing textures.
+- If the resolution is too small and forces scrolling, the effect panels stay in their spot relative to the screen after being dragged.
