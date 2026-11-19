@@ -5,8 +5,8 @@
         <audio id="exportSound" src="https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3" preload="auto"></audio>
         <audio id="tickSound" src="https://cdn.hackclub.com/01a1e154-f71a-70ba-a2ec-129d089b5c00/tick.mp3" preload="auto"></audio>
 
-        <h1 style="padding: 0px">
-            <image src="https://cdn.hackclub.com/01a1dc3c-fa71-773f-88fb-1e3be6f7cb45/texture-tools-banner.png" width="500"></image>
+        <h1 style="padding: 1vh" id="bannerImage">
+            <image src="https://cdn.hackclub.com/01a1f268-c663-7132-a15d-3acd9480e260/texture-tools-banner.png" width="500"></image>
         </h1>
         <h2 id="subTitle">A retro-focused editor for images and textures.</h2>
 
@@ -18,7 +18,12 @@
             </form>
 
             <p>Effects are applied from top to bottom. Drag headers to rearrange.</p>
-            <button class="hoverSoundButton clickSoundButton" id="rotateButton">Rotate Image</button>
+            
+            <div style="display:flex; flex-wrap: wrap; gap: .5vw">
+                <button class="hoverSoundButton clickSoundButton" id="rotateButton">Rotate Image</button>
+                <button class="hoverSoundButton clickSoundButton" id="flipHorizontallyButton">Flip Horizontally</button>
+                <button class="hoverSoundButton clickSoundButton" id="flipVerticallyButton">Flip Vertically</button>
+            </div>
             
             <button class="hoverSoundButton clickSoundButton" id="resetButton">Reset Effect Settings</button>
 

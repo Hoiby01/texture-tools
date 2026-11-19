@@ -24,6 +24,8 @@ const muteButton = document.querySelector('#muteButton');
 const muteIcon = document.querySelector('#volumeMuteIcon');
 const originalButton = document.querySelector('#originalButton');
 const rotateButton = document.querySelector('#rotateButton');
+const flipHorizontallyButton = document.querySelector('#flipHorizontallyButton');
+const flipVerticallyButton = document.querySelector('#flipVerticallyButton');
 
 //Create misc. variables
 let loadedImage;
@@ -31,6 +33,8 @@ let imageData;
 let currentHighestZIndex = 1;
 let isMuted = false;
 let currentRotation = 0;
+let isFlippedHorizontally = false;
+let isFlippedVertically = false;
 
 //Create references for canvases
 let originalImgXSize;
@@ -159,12 +163,12 @@ hoverButtons.forEach(button => {
 
 const clickButtons = document.querySelectorAll(".clickSoundButton");
 clickButtons.forEach(button => {
-    if (!isMuted) {
-        button.addEventListener('click', () => {
+    button.addEventListener('click', () => {
+        if (!isMuted) {
             clickSound.currentTime = 0;
             clickSound.play();
-        })
-    }
+        }
+    })
 })
 
 const sliders = document.querySelectorAll('input[type="range"]');
@@ -220,6 +224,18 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('input', (event) => {
         updateImage();
     })
+})
+
+//Listen for flip horizontally
+flipHorizontallyButton.addEventListener('click', (event) => {
+    isFlippedHorizontally = !isFlippedHorizontally;
+    updateImage();
+})
+
+//Listen for flip vertically
+flipVerticallyButton.addEventListener('click', (event) => {
+    isFlippedVertically = !isFlippedVertically;
+    updateImage();
 })
 
 //Export the image with applied effects.
@@ -566,6 +582,8 @@ function updateImage() {
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
     rotateImage();
+    flipHorizontally();
+    flipVertically();
 }
 
 //Reset button events
@@ -599,6 +617,8 @@ resetButton.addEventListener('click', (event) => {
     hueSlider.value = 0;
     hueSlider.dispatchEvent(new Event('input'));
     currentRotation = 0;
+    isFlippedHorizontally = false;
+    isFlippedVertically = false;
 
     updateImage();
 })
@@ -609,6 +629,7 @@ rotateButton.addEventListener('click', (event) => {
 })
 
 function rotateImage() {
+    rotatedCanvasContext.resetTransform();
     rotatedImgXSize = originalImgYSize;
     rotatedImgYSize = originalImgXSize;
     if (currentRotation / 180 != Math.round(currentRotation / 180)) {
@@ -621,6 +642,7 @@ function rotateImage() {
         rotatedOutputCanvas.height = originalImgYSize;
     }
     rotatedCanvasContext.translate(rotatedOutputCanvas.width / 2, rotatedOutputCanvas.height / 2);
+    rotatedCanvasContext.scale(isFlippedHorizontally ? -1 : 1, isFlippedVertically ? -1 : 1);
     rotatedCanvasContext.rotate((currentRotation * Math.PI) / 180);
     rotatedCanvasContext.drawImage(editedOutputCanvas, -originalImgXSize / 2, -originalImgYSize / 2);
     output.innerHTML = '';
