@@ -196,6 +196,11 @@ input[type="checkbox"]:checked::before {
     background-color: #00303a;
     position: static;
     z-index: 1;
+    
+}
+
+.effect.collapse > *:not(.dragHeader) {
+    display: none;
 }
 
 .dragHeader:active {

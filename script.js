@@ -99,6 +99,7 @@ draggableElements.forEach(element => {
     let startX, startY;
     let initialLeft, initialTop;
     let newLeft, newTop;
+    let wasDragged = false;
 
     handle.addEventListener('pointerdown', (event) => {
         const rect = element.getBoundingClientRect();
@@ -130,13 +131,22 @@ draggableElements.forEach(element => {
         if (isDragging) {
             newLeft = initialLeft + (event.clientX - startX);
             newTop = initialTop + (event.clientY - startY);
-    
+            
             element.style.left = `${newLeft}px`;
             element.style.top = `${newTop}px`;
+            if (Math.abs(event.clientX - startX) >= 5 || Math.abs(event.clientY - startY) >= 5) {
+                wasDragged = true;
+            }
         }
     })
 
     handle.addEventListener('pointerup', (event) => {
+        if (wasDragged === false) {
+            console.log("collapsing");
+            element.classList.toggle('collapse');
+        }
+        
+        wasDragged = false;
         if (isDragging) {
             isDragging = false;
             updateImage();
@@ -601,8 +611,6 @@ function updateImage() {
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
     rotateImage();
-    flipHorizontally();
-    flipVertically();
 }
 
 //Reset button events
