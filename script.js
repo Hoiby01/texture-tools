@@ -154,6 +154,21 @@ draggableElements.forEach(element => {
     })
 })
 
+//Press c to collapse all panels.
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'c') {
+        draggableElements.forEach(element => {
+            element.classList.add('collapse');
+        })
+    }
+    //Press e to expand all panels.
+    if (event.key === 'e') {
+        draggableElements.forEach(element => {
+            element.classList.remove('collapse');
+        })
+    }
+})
+
 //Play button sounds.
 const hoverSound = new Audio('https://cdn.hackclub.com/01a1ddbb-5be0-7281-abac-8f5364e75aff/Hover.mp3');
 const exportSound = new Audio('https://cdn.hackclub.com/01a1ddce-98b2-7959-9261-ab6a8f1dd36c/PartyBlower.mp3');

@@ -41,6 +41,10 @@ Sounds!
 
 The original image button shows the original button. Keep it in mind that it doesn't have rotation or flipping.
 
+Press e to expand all panels.
+
+Press c to collapse all panels.
+
 Press the icon in the bottom right corner to mute the sounds.
 
 ## Examples
