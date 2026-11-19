@@ -30,12 +30,16 @@ h1 {
 
 p {
     margin: .2vh;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 h2 {
     font-size: 32px;
     font-weight: 200;
     color: var(--accent-color);
+    -webkit-user-select: none;
+    user-select: none;  
 }
 
 h3 {
@@ -43,6 +47,8 @@ h3 {
     font-weight: 500;
     color: var(--accent-color);
     margin: 0px;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .column {
@@ -83,6 +89,7 @@ canvas {
 body {
     margin: 0;
     color: var(--color);
+    user-select: none;
 }
 
 button {
@@ -92,6 +99,8 @@ button {
     font-family: 'Square';
     font-size: 130%;
     color: var(--color);
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 button:hover {
@@ -186,6 +195,8 @@ input[type="checkbox"]:checked::before {
 .effectLabel {
     padding-right: 5px;
     letter-spacing: 3%;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .effectOutput {
