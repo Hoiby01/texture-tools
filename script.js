@@ -23,12 +23,14 @@ const draggableElements = document.querySelectorAll('.effect')
 const muteButton = document.querySelector('#muteButton');
 const muteIcon = document.querySelector('#volumeMuteIcon');
 const originalButton = document.querySelector('#originalButton');
+const rotateButton = document.querySelector('#rotateButton');
 
 //Create misc. variables
 let loadedImage;
 let imageData;
 let currentHighestZIndex = 1;
 let isMuted = false;
+let currentRotation = 0;
 
 //Create references for canvases
 let originalImgXSize;
@@ -43,7 +45,13 @@ const editedOutputCanvas = document.createElement('canvas');
 const editedCanvasContext = editedOutputCanvas.getContext('2d', {
     willReadFrequently: true
 });
+const rotatedOutputCanvas = document.createElement('canvas');
+const rotatedCanvasContext = rotatedOutputCanvas.getContext('2d', {
+    willReadFrequently: true
+})
 const blankCanvas = document.querySelector('#blank');
+let rotatedImgXSize;
+let rotatedImgYSize;
 
 muteButton.addEventListener('click', (event) => {
     if (isMuted === true) {
@@ -141,7 +149,6 @@ const tickSound = new Audio('https://cdn.hackclub.com/01a1e154-f71a-70ba-a2ec-12
 const hoverButtons = document.querySelectorAll(".hoverSoundButton");
 
 hoverButtons.forEach(button => {
-    console.log("hovered and unmuted")
     button.addEventListener('mouseenter', () => {
         if (!isMuted) {
             hoverSound.currentTime = 0;
@@ -223,7 +230,7 @@ exportButton.addEventListener('click', (event) => {
         exportSound.play();
         const a = document.createElement("a");
         document.body.appendChild(a);
-        a.href = editedOutputCanvas.toDataURL();
+        a.href = rotatedOutputCanvas.toDataURL();
         a.download = "Final-Output.png";
         a.click();
         document.body.removeChild(a);
@@ -558,6 +565,7 @@ function updateImage() {
     editedCanvasContext.putImageData(imageData, 0, 0);
     output.innerHTML = '';
     output.appendChild(editedOutputCanvas);
+    rotateImage();
 }
 
 //Reset button events
@@ -590,6 +598,31 @@ resetButton.addEventListener('click', (event) => {
 
     hueSlider.value = 0;
     hueSlider.dispatchEvent(new Event('input'));
+    currentRotation = 0;
 
     updateImage();
 })
+
+rotateButton.addEventListener('click', (event) => {
+    currentRotation += 90;
+    rotateImage();
+})
+
+function rotateImage() {
+    rotatedImgXSize = originalImgYSize;
+    rotatedImgYSize = originalImgXSize;
+    if (currentRotation / 180 != Math.round(currentRotation / 180)) {
+        rotatedOutputCanvas.width = rotatedImgXSize;
+        rotatedOutputCanvas.height = rotatedImgYSize;
+    }
+    
+    else {
+        rotatedOutputCanvas.width = originalImgXSize;
+        rotatedOutputCanvas.height = originalImgYSize;
+    }
+    rotatedCanvasContext.translate(rotatedOutputCanvas.width / 2, rotatedOutputCanvas.height / 2);
+    rotatedCanvasContext.rotate((currentRotation * Math.PI) / 180);
+    rotatedCanvasContext.drawImage(editedOutputCanvas, -originalImgXSize / 2, -originalImgYSize / 2);
+    output.innerHTML = '';
+    output.appendChild(rotatedOutputCanvas);
+}

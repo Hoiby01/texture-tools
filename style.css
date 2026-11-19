@@ -70,9 +70,10 @@ h3 {
 
 canvas {
     image-rendering: pixelated;
-    max-width: 1000px;
+    max-width: 65vh;
     height: auto;
-    width: 700px;
+    width: auto;
+    width: 100%;
 }
 
 body {

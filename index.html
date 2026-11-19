@@ -18,7 +18,10 @@
             </form>
 
             <p>Effects are applied from top to bottom. Drag headers to rearrange.</p>
+            <button class="hoverSoundButton clickSoundButton" id="rotateButton">Rotate Image</button>
+            
             <button class="hoverSoundButton clickSoundButton" id="resetButton">Reset Effect Settings</button>
+
             
             <div class="effect" id="pixelateEffect">
                 <h3 class="dragHeader">Pixelation</h3>
@@ -112,7 +115,7 @@
 
         <section class="column">
             <h2>Output</h2>
-            <button id="originalButton">Original Image</button>
+            <button id="originalButton" class="hoverSoundButton clickSoundButton">Original Image</button>
             <img id="outputPreview">
             <div id="output"></div>
             <button id="exportButton" class="hoverSoundButton">Export!</button>
