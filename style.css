@@ -28,6 +28,10 @@ h1 {
     color: var(--big-accent-color);
 }
 
+p {
+    margin: .2vh;
+}
+
 h2 {
     font-size: 32px;
     font-weight: 200;
@@ -61,7 +65,7 @@ h3 {
 }
 
 #subtitle {
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 :root {
@@ -221,4 +225,8 @@ input[type="checkbox"]:checked::before {
     bottom: 20px;
     right: 20px;
     background: none;
+}
+
+#imageUploadForm {
+    margin-bottom: .1vh;
 }

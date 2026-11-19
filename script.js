@@ -26,6 +26,7 @@ const originalButton = document.querySelector('#originalButton');
 const rotateButton = document.querySelector('#rotateButton');
 const flipHorizontallyButton = document.querySelector('#flipHorizontallyButton');
 const flipVerticallyButton = document.querySelector('#flipVerticallyButton');
+const invertButton = document.querySelector('#invertCheckbox');
 
 //Create misc. variables
 let loadedImage;
@@ -75,8 +76,7 @@ originalButton.addEventListener('mousedown', (event) => {
 });
 
 originalButton.addEventListener('mouseup', (event) => {
-    output.innerHTML = '';
-    output.appendChild(editedOutputCanvas);
+    updateImage();
 })
 
 //Resize the canvas so that things don't get to crazy with high resolution images.
@@ -252,6 +252,11 @@ exportButton.addEventListener('click', (event) => {
         document.body.removeChild(a);
     }
     
+})
+
+//Listen for invert button
+invertButton.addEventListener('click', (event) => {
+    updateImage();
 })
 
 //Pixelate image. The temporary canvas that is resized is editedOutputCanvas in order to preserve the orignal image.
@@ -521,6 +526,14 @@ function hueImage() {
     }
 }
 
+function invertImage() {
+    for (let i = 0; i < imageData.data.length; i += 4) {
+        imageData.data[i] = 255 - imageData.data[i];
+        imageData.data[i+1] = 255 - imageData.data[i+1];
+        imageData.data[i+2] = 255 - imageData.data[i+2];
+    }
+}
+
 //Function that actually applies image effects.
 function updateImage() {
     editedOutputCanvas.width = originalImgXSize;
@@ -575,6 +588,12 @@ function updateImage() {
 
         else if (panel.id === 'hueEffect') {
             hueImage();
+        }
+
+        else if (panel.id === 'invertEffect') {
+            if (invertButton.checked) {
+                invertImage();
+            }
         }
     })
     
